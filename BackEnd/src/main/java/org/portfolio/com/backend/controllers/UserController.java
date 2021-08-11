@@ -7,11 +7,10 @@ import org.portfolio.com.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +35,11 @@ public class UserController {
         return modelMapper.map(user, UserDto.class);
     }
 
-    @GetMapping(value = "listAll")
+    private User convertToUser(UserDto userDto) {
+        return modelMapper.map(userDto, User.class);
+    }
+
+    @GetMapping(value = "/listall")
     public ResponseEntity<List<UserDto>> listUsers(){
 
        List <UserDto> dtoList =  userRepository.findAll()
@@ -47,4 +50,14 @@ public class UserController {
        return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/save")
+    public ResponseEntity <?> save(@Valid @RequestBody UserDto userDto, BindingResult bindingResul){
+
+        if (bindingResul.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        userRepository.save(convertToUser(userDto));
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
