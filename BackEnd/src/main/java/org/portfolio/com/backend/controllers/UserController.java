@@ -62,6 +62,17 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PutMapping(value = "/update")
+    public ResponseEntity<?> update(@Valid @RequestBody UserDto userDto, BindingResult bindingResul) {
+
+        if (bindingResul.hasErrors() || userDto.getId() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        userRepository.saveAndFlush(convertToUser(userDto));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam(name = "iduser") Long iduser) {
 
@@ -79,6 +90,21 @@ public class UserController {
         if (userRepository.existsById(iduser)) {
             User user = userRepository.findById(iduser).get();
             return new ResponseEntity<>(convert(user), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("User don't exist", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(value = "/searchbyname")
+    public ResponseEntity<?> searchByName(@RequestParam(name = "name") String name) {
+
+
+        List<User> user = userRepository.searchByName(name.trim().toUpperCase());
+
+        if(user != null) {
+            return new ResponseEntity<>(user.stream()
+                    .map(this::convert)
+                    .collect(Collectors.toList()), HttpStatus.OK);
         }
 
         return new ResponseEntity<>("User don't exist", HttpStatus.BAD_REQUEST);
