@@ -77,3 +77,9 @@ body{
     color:rgba(7, 3, 238, 0.527) !important;
     font-weight: bold;
 }
+
+.invalid{
+    color: #000000;
+    font-weight: bold;
+    font-size: 1.3em;
+}
