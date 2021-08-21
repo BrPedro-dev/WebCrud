@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,18 +41,18 @@ public class UserController {
     }
 
     @GetMapping(value = "/listall")
-    public ResponseEntity<List<UserDto>> listUsers(){
+    public ResponseEntity<List<UserDto>> listUsers() {
 
-       List <UserDto> dtoList =  userRepository.findAll()
+        List<UserDto> dtoList = userRepository.findAll()
                 .stream()
                 .map(this::convert)
                 .collect(Collectors.toList());
 
-       return new ResponseEntity<>(dtoList, HttpStatus.OK);
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
     @PostMapping(value = "/save")
-    public ResponseEntity <?> save(@Valid @RequestBody UserDto userDto, BindingResult bindingResul){
+    public ResponseEntity<?> save(@Valid @RequestBody UserDto userDto, BindingResult bindingResul) {
 
         if (bindingResul.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -60,4 +61,27 @@ public class UserController {
         userRepository.save(convertToUser(userDto));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @DeleteMapping(value = "/delete")
+    public ResponseEntity<String> delete(@RequestParam(name = "iduser") Long iduser) {
+
+        if (userRepository.existsById(iduser)) {
+            userRepository.deleteById(iduser);
+            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("User don't exist", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(value = "/searchuser")
+    public ResponseEntity<?> searchuser(@RequestParam(name = "iduser") Long iduser) {
+
+        if (userRepository.existsById(iduser)) {
+            User user = userRepository.findById(iduser).get();
+            return new ResponseEntity<>(convert(user), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("User don't exist", HttpStatus.BAD_REQUEST);
+    }
+
 }
