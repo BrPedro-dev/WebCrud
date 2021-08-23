@@ -42,7 +42,7 @@ function validName(Name) {
 function ajaxSave(id, name, age) {
 
     $.ajax({
-        url: "http://localhost:8081/springboot-rest-api-sample/save",
+        url: "save",
         type: 'POST',
         async: true,
         contentType: 'application/json',
@@ -80,7 +80,7 @@ function research() {
         if (name != null && name.trim() != "") {
 
             $.ajax({
-                url: "http://localhost:8081/springboot-rest-api-sample/searchbyname",
+                url: "searchbyname",
                 type: 'GET',
                 async: true,
                 contentType: 'application/json',
@@ -113,7 +113,7 @@ function table(response) {
 function funcedit(id) {
 
     $.ajax({
-        url: "http://localhost:8081/springboot-rest-api-sample/searchuser",
+        url: "searchuser",
         type: 'GET',
         async: true,
         contentType: 'application/json',
@@ -137,7 +137,7 @@ function funcdelete(id) {
     if (confirm("Do you really want to delete? ")) {
 
         $.ajax({
-            url: "http://localhost:8081/springboot-rest-api-sample/delete",
+            url: "delete",
             type: 'DELETE',
             data: "iduser=" + id,
             success: function (response) {
