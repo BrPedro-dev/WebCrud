@@ -49,7 +49,7 @@
                         <button class="buttons" data-bs-toggle="modal" data-bs-target="#Modal">Search</button>
                     </div>
                     <div class="col-sm-2 ">
-                        <button id="button" class="buttons" id = delete>Delete</button>
+                        <button id="delete" class="buttons">Delete</button>
                     </div>
 
                 </div>
@@ -71,10 +71,23 @@
                             <input type="text" class="form-control input-text" id="recipient-name" placeholder="NAME">
                         </div>
                     </form>
+                    <table class="table table-hover" id="tableresult">
+                        <thead>
+                          <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="buttons" id = "research" >Research</button>
                     <button type="button" class="buttons" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="buttons" id = research >Research</button>
                 </div>
             </div>
         </div>
