@@ -58,8 +58,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        userRepository.save(convertToUser(userDto));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        User user = userRepository.saveAndFlush(convertToUser(userDto));
+        return new ResponseEntity<>(user,HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/update")
@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/delete")
-    public ResponseEntity<String> delete(@RequestParam(name = "iduser") Long iduser) {
+    public ResponseEntity<?> delete(@RequestParam(name = "iduser") Long iduser) {
 
         if (userRepository.existsById(iduser)) {
             userRepository.deleteById(iduser);
