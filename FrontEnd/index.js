@@ -1,5 +1,6 @@
 $(document).ready(function() {
     saveButton()
+    reset()
 })
 
 function saveButton(){
@@ -8,7 +9,7 @@ function saveButton(){
        var name = $("#name").val()
        var age = $("#age").val()
 
-       if(validAge(parseInt(age))){
+       if(validAge(parseInt(age) && validName(name))){
            $("#spanage").text("")
            ajaxSave(id,name,parseInt(age))
        }else {
@@ -26,6 +27,14 @@ function validAge(Age){
     return false
 }
 
+function validName(Name){
+
+    if(Name != null ){
+        return true
+    }
+    return false
+}
+
 function ajaxSave(id,name,age){
 
     $.ajax({
@@ -34,12 +43,28 @@ function ajaxSave(id,name,age){
         async: true,
         contentType: 'application/json',
         data: JSON.stringify({
-            id: null,
+            id: id,
             name: name,
             age: age
         }),
-        error: function(){
-            alert('error');
+        success: function(response){
+            $("#userID").val(response.id)
+            alert("Sucess")
         }
+
+    }).fail(function(xhr, status, errorThrow){
+        alert("error saving user " + xhr.responseText);
     })
+}
+
+function reset(){
+
+    $("#reset").click(function(){
+    
+        $("#userID").val("")
+        $("#name").val("")
+        $("#age").val("")
+        
+    })
+
 }
