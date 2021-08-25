@@ -1,8 +1,8 @@
-# Mad Pinchers
+# Web Crud
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/BrPedro-dev/WebCrud/blob/master/LICENSE) 
 
 # About the project
-The bootcamp hackathon theme was about films and each group was assigned a different movie Our group was assigned Mad Max. Inspired by the anarchic and hopeless nature of a post-apocalyptic setting where resources are scarce and violence reigns supreme, we came up with the idea of creating a web app allocated in the deep web, that provides different services to every other user in order to thrive in this world.
+This project was created to demonstrate my knowledge in a full stack creation.
 
 ## Index
 ![Index](https://github.com/BrPedro-dev/WebCrud/blob/master/Imagens/Main.png)
@@ -42,6 +42,7 @@ Prerequisites: Java 8, Maven and MySQL;
 
 https://springboot-rest-api-portifolio.herokuapp.com/springboot-rest-api-sample/
 
+<h3>𝗧𝗵𝗮𝗻𝗸𝘀 𝗙𝗼𝗿 𝗩𝗶𝘀𝗶𝘁𝗶𝗻𝗴 <img height="40" src="https://emoji.gg/assets/emoji/7333-parrotdance.gif"> </h3>
 
 # Authors
 
